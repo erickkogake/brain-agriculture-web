@@ -1,7 +1,5 @@
 import { z } from 'zod'
-import { BRAZIL_STATES, CROP_TYPES } from '@/types'
-
-// ─── CPF/CNPJ validation ──────────────────────────────────────────────────────
+import { BRAZIL_STATES, CROP_TYPES, CropType } from '@/types'
 
 function isValidCPF(cpf: string): boolean {
   const c = cpf.replace(/\D/g, '')
@@ -39,8 +37,6 @@ const documentSchema = z.string().min(1, 'Documento obrigatório').refine((val) 
   return false
 }, 'CPF ou CNPJ inválido')
 
-// ─── Schemas ──────────────────────────────────────────────────────────────────
-
 export const producerSchema = z.object({
   document: documentSchema,
   name: z.string().min(3, 'Nome deve ter no mínimo 3 caracteres').max(255),
@@ -76,7 +72,7 @@ export type HarvestFormValues = z.infer<typeof harvestSchema>
 
 export const cropSchema = z.object({
   harvestId: z.string().uuid('ID da safra inválido'),
-  type: z.enum(CROP_TYPES as [string, ...string[]], { errorMap: () => ({ message: 'Tipo de cultura inválido' }) }),
+  type: z.enum(CROP_TYPES as [CropType, ...CropType[]], { errorMap: () => ({ message: 'Tipo de cultura inválido' }) }),
   description: z.string().optional(),
   plantedArea: z.coerce.number().min(0).optional().or(z.literal('')).transform(v => v === '' ? undefined : v),
 })

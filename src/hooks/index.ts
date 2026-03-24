@@ -9,10 +9,8 @@ import type {
   CreateProducerDto, UpdateProducerDto,
   CreateFarmDto, UpdateFarmDto,
   CreateHarvestDto, UpdateHarvestDto,
-  CreateCropDto, UpdateCropDto,
+  CreateCropDto,
 } from '@/types'
-
-// ─── Query Keys ───────────────────────────────────────────────────────────────
 
 export const queryKeys = {
   dashboard: ['dashboard'] as const,
@@ -25,8 +23,6 @@ export const queryKeys = {
   crops: (harvestId?: string) => ['crops', harvestId] as const,
 }
 
-// ─── Dashboard ────────────────────────────────────────────────────────────────
-
 export function useDashboard() {
   return useQuery({
     queryKey: queryKeys.dashboard,
@@ -34,8 +30,6 @@ export function useDashboard() {
     staleTime: 30_000,
   })
 }
-
-// ─── Producers ────────────────────────────────────────────────────────────────
 
 export function useProducers() {
   return useQuery({
@@ -91,8 +85,6 @@ export function useDeleteProducer() {
     onError: (e: Error) => toast.error(e.message),
   })
 }
-
-// ─── Farms ────────────────────────────────────────────────────────────────────
 
 export function useFarms(producerId?: string) {
   return useQuery({
@@ -153,8 +145,6 @@ export function useDeleteFarm() {
   })
 }
 
-// ─── Harvests ─────────────────────────────────────────────────────────────────
-
 export function useHarvests(farmId?: string) {
   return useQuery({
     queryKey: queryKeys.harvests(farmId),
@@ -201,8 +191,6 @@ export function useDeleteHarvest() {
     onError: (e: Error) => toast.error(e.message),
   })
 }
-
-// ─── Crops ────────────────────────────────────────────────────────────────────
 
 export function useCrops(harvestId?: string) {
   return useQuery({
