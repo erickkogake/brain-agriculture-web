@@ -54,7 +54,8 @@ export function FarmForm({ open, onOpenChange, producerId, editing }: FarmFormPr
 
   const onSubmit = async (values: FarmFormValues) => {
     if (isEditing && editing) {
-      const { producerId: _pid, ...dto } = values
+      const { producerId: _, ...dto } = values
+      console.log(_)
       await update.mutateAsync({ id: editing.id, dto })
     } else {
       await create.mutateAsync(values)

@@ -2,14 +2,14 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useProducer, useDeleteFarm, useCreateFarm, useUpdateFarm, useCreateHarvest, useCreateCrop, useDeleteHarvest, useDeleteCrop } from '@/hooks'
+import { useProducer, useDeleteFarm, useDeleteHarvest, useDeleteCrop } from '@/hooks'
 import { Button, Badge, Card, PageHeader, Empty, Confirm, Skeleton } from '@/components/ui'
 import { FarmForm } from '@/components/farms/FarmForm'
 import { HarvestForm } from '@/components/harvests/HarvestForm'
 import { CropForm } from '@/components/crops/CropForm'
 import { formatDocument, formatHectares } from '@/lib/utils'
 import { ArrowLeft, Plus, Home, Trash2, ChevronDown, ChevronRight, Sprout, CalendarDays, Pencil } from 'lucide-react'
-import type { Farm, Harvest, Crop } from '@/types'
+import type { Farm } from '@/types'
 
 export function ProducerDetail({ id }: { id: string }) {
   const { data: producer, isLoading } = useProducer(id)

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { BRAZIL_STATES, CROP_TYPES, CropType } from '@/types'
+import { BRAZIL_STATES, CROP_TYPES, type CropType } from '@/types'
 
 function isValidCPF(cpf: string): boolean {
   const c = cpf.replace(/\D/g, '')
