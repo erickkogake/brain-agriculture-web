@@ -7,8 +7,6 @@ import type {
   CreateCropDto, UpdateCropDto,
 } from '@/types'
 
-// ─── Producers ────────────────────────────────────────────────────────────────
-
 export const producersService = {
   findAll: async (): Promise<Producer[]> => {
     const { data } = await apiClient.get<ApiResponse<Producer[]>>('/producers')
@@ -30,8 +28,6 @@ export const producersService = {
     await apiClient.delete(`/producers/${id}`)
   },
 }
-
-// ─── Farms ────────────────────────────────────────────────────────────────────
 
 export const farmsService = {
   findAll: async (producerId?: string): Promise<Farm[]> => {
@@ -56,8 +52,6 @@ export const farmsService = {
   },
 }
 
-// ─── Harvests ─────────────────────────────────────────────────────────────────
-
 export const harvestsService = {
   findAll: async (farmId?: string): Promise<Harvest[]> => {
     const params = farmId ? { farmId } : {}
@@ -81,8 +75,6 @@ export const harvestsService = {
   },
 }
 
-// ─── Crops ────────────────────────────────────────────────────────────────────
-
 export const cropsService = {
   findAll: async (harvestId?: string): Promise<Crop[]> => {
     const params = harvestId ? { harvestId } : {}
@@ -105,8 +97,6 @@ export const cropsService = {
     await apiClient.delete(`/crops/${id}`)
   },
 }
-
-// ─── Dashboard ────────────────────────────────────────────────────────────────
 
 export const dashboardService = {
   getStats: async (): Promise<DashboardStats> => {
