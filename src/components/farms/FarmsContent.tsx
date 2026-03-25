@@ -50,56 +50,107 @@ export function FarmsContent() {
           />
         </Card>
       ) : (
-        <Card>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-stone-100">
-                  {['Fazenda', 'Localização', 'Produtor', 'Área Total', 'Agricultável', 'Vegetação', 'Uso', ''].map((h) => (
-                    <th key={h} className="text-left px-5 py-3 text-xs font-medium text-stone-400 uppercase tracking-wide whitespace-nowrap">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {farms?.map((f, i) => {
-                  const total = Number(f.totalArea)
-                  const arable = Number(f.arableArea)
-                  const veg = Number(f.vegetationArea)
-                  const pct = total > 0 ? Math.round(((arable + veg) / total) * 100) : 0
-
-                  return (
-                    <tr key={f.id} className="border-b border-stone-50 last:border-0 hover:bg-stone-50/60 transition-colors animate-fade-up" style={{ animationDelay: `${i * 0.04}s` }}>
-                      <td className="px-5 py-4 font-medium text-stone-800">{f.name}</td>
-                      <td className="px-5 py-4 text-stone-500 text-xs">{f.city} · <Badge variant="stone">{f.state}</Badge></td>
-                      <td className="px-5 py-4 text-stone-500 text-xs">{f.producer?.name ?? '—'}</td>
-                      <td className="px-5 py-4 text-stone-600 tabular-nums text-xs">{formatHectares(total)} ha</td>
-                      <td className="px-5 py-4 text-meadow-700 tabular-nums text-xs">{formatHectares(arable)} ha</td>
-                      <td className="px-5 py-4 text-soil-700 tabular-nums text-xs">{formatHectares(veg)} ha</td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-2">
-                          <div className="w-16 h-1.5 bg-stone-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-meadow-400 rounded-full" style={{ width: `${pct}%` }} />
-                          </div>
-                          <span className="text-xs text-stone-400 tabular-nums">{pct}%</span>
-                        </div>
-                      </td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-1 justify-end">
-                          <button onClick={() => handleEdit(f)} className="p-1.5 rounded hover:bg-stone-100 text-stone-400 hover:text-stone-600 transition-colors">
-                            <Pencil className="w-3.5 h-3.5" />
-                          </button>
-                          <button onClick={() => setDeletingId(f.id)} className="p-1.5 rounded hover:bg-red-50 text-stone-400 hover:text-red-500 transition-colors">
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+        <>
+          <div className="lg:hidden space-y-3">
+            {farms?.map((f, i) => {
+              const total = Number(f.totalArea)
+              const arable = Number(f.arableArea)
+              const veg = Number(f.vegetationArea)
+              const pct = total > 0 ? Math.round(((arable + veg) / total) * 100) : 0
+              return (
+                <Card key={f.id} className="animate-fade-up" style={{ animationDelay: `${i * 0.04}s` }}>
+                  <div className="p-4 space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <p className="font-medium text-stone-800">{f.name}</p>
+                        <p className="text-xs text-stone-500 mt-0.5">{f.city} · <Badge variant="stone">{f.state}</Badge></p>
+                        {f.producer?.name && <p className="text-xs text-stone-400 mt-1">{f.producer.name}</p>}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button onClick={() => handleEdit(f)} className="p-1.5 rounded hover:bg-stone-100 text-stone-400 hover:text-stone-600 transition-colors">
+                          <Pencil className="w-3.5 h-3.5" />
+                        </button>
+                        <button onClick={() => setDeletingId(f.id)} className="p-1.5 rounded hover:bg-red-50 text-stone-400 hover:text-red-500 transition-colors">
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      <div>
+                        <p className="text-stone-400">Total</p>
+                        <p className="text-stone-600 tabular-nums font-medium">{formatHectares(total)} ha</p>
+                      </div>
+                      <div>
+                        <p className="text-stone-400">Agricultável</p>
+                        <p className="text-meadow-700 tabular-nums font-medium">{formatHectares(arable)} ha</p>
+                      </div>
+                      <div>
+                        <p className="text-stone-400">Vegetação</p>
+                        <p className="text-soil-700 tabular-nums font-medium">{formatHectares(veg)} ha</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                        <div className="h-full bg-meadow-400 rounded-full" style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="text-xs text-stone-400 tabular-nums">{pct}%</span>
+                    </div>
+                  </div>
+                </Card>
+              )
+            })}
           </div>
-        </Card>
+
+          <Card className="hidden lg:block">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-stone-100">
+                    {['Fazenda', 'Localização', 'Produtor', 'Área Total', 'Agricultável', 'Vegetação', 'Uso', ''].map((h) => (
+                      <th key={h} className="text-left px-5 py-3 text-xs font-medium text-stone-400 uppercase tracking-wide whitespace-nowrap">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {farms?.map((f, i) => {
+                    const total = Number(f.totalArea)
+                    const arable = Number(f.arableArea)
+                    const veg = Number(f.vegetationArea)
+                    const pct = total > 0 ? Math.round(((arable + veg) / total) * 100) : 0
+                    return (
+                      <tr key={f.id} className="border-b border-stone-50 last:border-0 hover:bg-stone-50/60 transition-colors animate-fade-up" style={{ animationDelay: `${i * 0.04}s` }}>
+                        <td className="px-5 py-4 font-medium text-stone-800">{f.name}</td>
+                        <td className="px-5 py-4 text-stone-500 text-xs">{f.city} · <Badge variant="stone">{f.state}</Badge></td>
+                        <td className="px-5 py-4 text-stone-500 text-xs">{f.producer?.name ?? '—'}</td>
+                        <td className="px-5 py-4 text-stone-600 tabular-nums text-xs">{formatHectares(total)} ha</td>
+                        <td className="px-5 py-4 text-meadow-700 tabular-nums text-xs">{formatHectares(arable)} ha</td>
+                        <td className="px-5 py-4 text-soil-700 tabular-nums text-xs">{formatHectares(veg)} ha</td>
+                        <td className="px-5 py-4">
+                          <div className="flex items-center gap-2">
+                            <div className="w-16 h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                              <div className="h-full bg-meadow-400 rounded-full" style={{ width: `${pct}%` }} />
+                            </div>
+                            <span className="text-xs text-stone-400 tabular-nums">{pct}%</span>
+                          </div>
+                        </td>
+                        <td className="px-5 py-4">
+                          <div className="flex items-center gap-1 justify-end">
+                            <button onClick={() => handleEdit(f)} className="p-1.5 rounded hover:bg-stone-100 text-stone-400 hover:text-stone-600 transition-colors">
+                              <Pencil className="w-3.5 h-3.5" />
+                            </button>
+                            <button onClick={() => setDeletingId(f.id)} className="p-1.5 rounded hover:bg-red-50 text-stone-400 hover:text-red-500 transition-colors">
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </>
       )}
 
       {formOpen && (

@@ -5,9 +5,6 @@ import * as Dialog from '@radix-ui/react-dialog'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { X, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
-// ─── Button ───────────────────────────────────────────────────────────────────
-
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
   size?: 'sm' | 'md' | 'lg'
@@ -43,8 +40,6 @@ export function Button({
   )
 }
 
-// ─── Input ────────────────────────────────────────────────────────────────────
-
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
   error?: string
@@ -79,8 +74,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   },
 )
 Input.displayName = 'Input'
-
-// ─── Select ───────────────────────────────────────────────────────────────────
 
 interface SelectFieldProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
@@ -122,8 +115,6 @@ export const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>
 )
 SelectField.displayName = 'SelectField'
 
-// ─── Badge ────────────────────────────────────────────────────────────────────
-
 interface BadgeProps {
   variant?: 'green' | 'amber' | 'stone' | 'soil' | 'red' | 'blue'
   children: React.ReactNode
@@ -146,17 +137,13 @@ export function Badge({ variant = 'stone', children, className }: BadgeProps) {
   )
 }
 
-// ─── Card ─────────────────────────────────────────────────────────────────────
-
-export function Card({ children, className }: { children: React.ReactNode; className?: string }) {
+export function Card({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
-    <div className={cn('bg-white rounded-xl border border-stone-200/80 shadow-sm', className)}>
+    <div className={cn('bg-white rounded-xl border border-stone-200/80 shadow-sm', className)} style={style}>
       {children}
     </div>
   )
 }
-
-// ─── Modal ────────────────────────────────────────────────────────────────────
 
 interface ModalProps {
   open: boolean
@@ -198,8 +185,6 @@ export function Modal({ open, onOpenChange, title, description, children, classN
   )
 }
 
-// ─── Confirm Dialog ───────────────────────────────────────────────────────────
-
 interface ConfirmProps {
   open: boolean
   onOpenChange: (v: boolean) => void
@@ -237,15 +222,11 @@ export function Confirm({ open, onOpenChange, title, description, onConfirm, loa
   )
 }
 
-// ─── Skeleton ─────────────────────────────────────────────────────────────────
-
 export function Skeleton({ className }: { className?: string }) {
   return (
     <div className={cn('rounded-lg bg-stone-200/80 animate-pulse', className)} />
   )
 }
-
-// ─── Empty State ──────────────────────────────────────────────────────────────
 
 interface EmptyProps {
   icon: React.ReactNode
@@ -266,8 +247,6 @@ export function Empty({ icon, title, description, action }: EmptyProps) {
     </div>
   )
 }
-
-// ─── Page Header ──────────────────────────────────────────────────────────────
 
 interface PageHeaderProps {
   title: string
