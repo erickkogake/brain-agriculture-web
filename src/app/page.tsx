@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: 'Dashboard' }
 
 export default function DashboardPage() {
   return (
-    <div className="p-8">
+    <div className="px-4 py-6 pt-16 lg:pt-8 lg:px-8">
       <DashboardContent />
     </div>
   )
