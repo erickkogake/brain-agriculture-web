@@ -72,7 +72,7 @@ export function FarmForm({ open, onOpenChange, producerId, editing }: FarmFormPr
       onOpenChange={onOpenChange}
       title={isEditing ? 'Editar Fazenda' : 'Nova Fazenda'}
       description="Preencha os dados da propriedade rural."
-      className="max-w-xl mb-10"
+      className="max-w-xl -translate-y-10"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <input type="hidden" {...register('producerId')} />
