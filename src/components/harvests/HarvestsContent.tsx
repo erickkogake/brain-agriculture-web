@@ -107,8 +107,8 @@ export function HarvestsContent() {
         </>
       )}
 
-      {formOpen && editing && (
-        <HarvestForm open={formOpen} onOpenChange={setFormOpen} farmId={editing.farmId} editing={editing} />
+      {formOpen && (
+        <HarvestForm open={formOpen} onOpenChange={setFormOpen} farmId={editing?.farmId ?? ""} editing={editing} />
       )}
 
       <Confirm
