@@ -161,7 +161,7 @@ export function Modal({ open, onOpenChange, title, description, children, classN
         <Dialog.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 data-[state=open]:animate-fade-in" />
         <Dialog.Content
           className={cn(
-            'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50',
+            'fixed left-1/2 top-[45%] -translate-x-1/2 -translate-y-[45%] z-50',
             'bg-white rounded-2xl shadow-2xl border border-stone-200/60 w-full max-w-lg max-h-[90vh] overflow-y-auto',
             'data-[state=open]:animate-fade-up',
             className,
