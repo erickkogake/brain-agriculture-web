@@ -67,7 +67,7 @@ export function Sidebar() {
             Sistema
           </p>
           <a
-            href={`${process.env.NEXT_PUBLIC_API_URL}/docs`}
+            href={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '')}/docs`}
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-stone-400 hover:bg-stone-800/60 hover:text-stone-200 transition-all"
